@@ -1,4 +1,4 @@
-# MediscanSDK
+# Med42SDK
 
 Closed-source iOS SDK distributed as a binary Swift Package.
 
@@ -41,7 +41,7 @@ In Xcode:
 2. **File → Add Packages**
 3. Enter the repository URL:  
    https://github.com/systemloco/mediscan-sdk
-4. Select **MediscanSDK**
+4. Select **Med42SDK**
 5. Add it to your app target
 
 ---
@@ -49,13 +49,13 @@ In Xcode:
 ## Usage
 
 ```swift
-import MediscanSDK
+import Med42
 ```
 
 Example:
 
 ```swift
-MediscanSDK.shared.configure(
+Med42.shared.configure(
     apiKey: "<API_KEY>",
     clientId: "<CLIENT_ID>"
 )
@@ -70,7 +70,7 @@ This repository includes a minimal **example iOS app** demonstrating basic SDK i
 To try it out:
 
 1. Open the repository in Xcode
-2. Select the **MediscanSDKExample** scheme
+2. Select the **Med42SDKExample** scheme
 3. Build and run on a simulator or device
 
 The example is intended for reference and local testing only and is not required for SDK integration.
@@ -86,7 +86,7 @@ To update, select a newer version in Xcode under **Package Dependencies**.
 
 ## Troubleshooting
 
-### `No such module 'MediscanSDK'`
+### `No such module 'Med42SDK'`
 
 - Ensure the package product is added to your app target
 - Clean the build folder (`Cmd + Shift + K`) and rebuild
