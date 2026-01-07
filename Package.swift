@@ -16,7 +16,7 @@ let package = Package(
         .binaryTarget(
             name: "MediscanSDK",
             url: "https://systemloco.jfrog.io/artifactory/mediscan-ios/MediscanSDK/1.0.20/MediscanSDK.xcframework.zip",
-            checksum: "e4f69fbd042c7845957934b6912c0bcf35dea285b252e18d00a64e00a7d69a6a"
+            checksum: "79baea866942fc313f1f164105684080fcafeb01ac32667ec4d33a66349af4b7"
         )
     ]
 )
