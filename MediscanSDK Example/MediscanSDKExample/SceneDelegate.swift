@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  MediscanSDKExample
+//  Med42SDKExample
 //
 //  Created by Mark Johnson on 24/07/2025.
 //
