@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let config = Med42Configuration(
             apiKey: "your-api-key",
             clientId: "your-client-id",
-            backgroundUploadTaskIdentifier: "com.mediscan.sdk.example.background-upload"
+            backgroundUploadTaskIdentifier: "com.med42.sdk.example.background-upload"
         )
         Med42.configure(with: config)
 

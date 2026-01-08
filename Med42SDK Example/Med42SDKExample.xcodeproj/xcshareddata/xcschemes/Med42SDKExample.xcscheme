@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4DFB31B62E324D3C000ECB6F"
-               BuildableName = "MediscanSDKExample.app"
-               BlueprintName = "MediscanSDKExample"
-               ReferencedContainer = "container:MediscanSDKExample.xcodeproj">
+               BuildableName = "Med42SDKExample.app"
+               BlueprintName = "Med42SDKExample"
+               ReferencedContainer = "container:Med42SDKExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,30 +29,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
-      <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4DFB31CC2E324D3E000ECB6F"
-               BuildableName = "MediscanSDKExampleTests.xctest"
-               BlueprintName = "MediscanSDKExampleTests"
-               ReferencedContainer = "container:MediscanSDKExample.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4DFB31D62E324D3E000ECB6F"
-               BuildableName = "MediscanSDKExampleUITests.xctest"
-               BlueprintName = "MediscanSDKExampleUITests"
-               ReferencedContainer = "container:MediscanSDKExample.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -69,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4DFB31B62E324D3C000ECB6F"
-            BuildableName = "MediscanSDKExample.app"
-            BlueprintName = "MediscanSDKExample"
-            ReferencedContainer = "container:MediscanSDKExample.xcodeproj">
+            BuildableName = "Med42SDKExample.app"
+            BlueprintName = "Med42SDKExample"
+            ReferencedContainer = "container:Med42SDKExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -86,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4DFB31B62E324D3C000ECB6F"
-            BuildableName = "MediscanSDKExample.app"
-            BlueprintName = "MediscanSDKExample"
-            ReferencedContainer = "container:MediscanSDKExample.xcodeproj">
+            BuildableName = "Med42SDKExample.app"
+            BlueprintName = "Med42SDKExample"
+            ReferencedContainer = "container:Med42SDKExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

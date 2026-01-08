@@ -93,7 +93,7 @@ class ViewController: UIViewController {
     // MARK: - Setup
     private func setupUI() {
         view.backgroundColor = .systemBackground
-        title = "Mediscan SDK Demo"
+        title = "Med42 SDK Demo"
 
         view.addSubview(stackView)
         view.addSubview(beaconsLabel)
@@ -218,7 +218,7 @@ extension ViewController: BeaconScannerDelegate {
     }
 }
 
-// MARK: - MediscanUploadDelegate
+// MARK: - Med42UploadDelegate
 @available(iOS 14.0, *)
 extension ViewController: Med42UploadDelegate {
     func uploadDidStart() {
