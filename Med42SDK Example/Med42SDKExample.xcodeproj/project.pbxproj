@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BF22AF712F0FC82500F821BE /* Med42SDK in Frameworks */ = {isa = PBXBuildFile; productRef = BF22AF702F0FC82500F821BE /* Med42SDK */; };
-		BFB6D1B92EF1BDB800314791 /* Med42SDK in Frameworks */ = {isa = PBXBuildFile; productRef = BFB6D1B82EF1BDB800314791 /* Med42SDK */; };
+		BF8ECE672F1002560080BB69 /* Med42SDK in Frameworks */ = {isa = PBXBuildFile; productRef = BF8ECE662F1002560080BB69 /* Med42SDK */; };
+		BF8ECE682F1002560080BB69 /* Med42SDK in Embed Frameworks */ = {isa = PBXBuildFile; productRef = BF8ECE662F1002560080BB69 /* Med42SDK */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,12 +41,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF22AF712F0FC82500F821BE /* Med42SDK in Frameworks */,
-				BFB6D1B92EF1BDB800314791 /* Med42SDK in Frameworks */,
+				BF8ECE672F1002560080BB69 /* Med42SDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BF8ECE692F1002560080BB69 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BF8ECE682F1002560080BB69 /* Med42SDK in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXGroup section */
 		4DFB31AE2E324D3C000ECB6F = {
@@ -83,6 +96,7 @@
 				4DFB31B32E324D3C000ECB6F /* Sources */,
 				4DFB31B42E324D3C000ECB6F /* Frameworks */,
 				4DFB31B52E324D3C000ECB6F /* Resources */,
+				BF8ECE692F1002560080BB69 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -93,8 +107,7 @@
 			);
 			name = Med42SDKExample;
 			packageProductDependencies = (
-				BFB6D1B82EF1BDB800314791 /* Med42SDK */,
-				BF22AF702F0FC82500F821BE /* Med42SDK */,
+				BF8ECE662F1002560080BB69 /* Med42SDK */,
 			);
 			productName = Med42SDKExample;
 			productReference = 4DFB31B72E324D3C000ECB6F /* Med42SDKExample.app */;
@@ -125,7 +138,7 @@
 			mainGroup = 4DFB31AE2E324D3C000ECB6F;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				BF22AF6F2F0FC82500F821BE /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */,
+				BF8ECE652F1002560080BB69 /* XCLocalSwiftPackageReference "../../loco_scan/swift/Med42SDK" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4DFB31B82E324D3C000ECB6F /* Products */;
@@ -364,24 +377,15 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		BF22AF6F2F0FC82500F821BE /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/systemloco/Med42-iOS-SDK";
-			requirement = {
-				kind = revision;
-				revision = 87b150bf33c6a8aabdd78f0570b1c16a0f20b352;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		BF8ECE652F1002560080BB69 /* XCLocalSwiftPackageReference "../../loco_scan/swift/Med42SDK" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../loco_scan/swift/Med42SDK;
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		BF22AF702F0FC82500F821BE /* Med42SDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BF22AF6F2F0FC82500F821BE /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */;
-			productName = Med42SDK;
-		};
-		BFB6D1B82EF1BDB800314791 /* Med42SDK */ = {
+		BF8ECE662F1002560080BB69 /* Med42SDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Med42SDK;
 		};
