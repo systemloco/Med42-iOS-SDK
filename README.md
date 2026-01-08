@@ -21,10 +21,11 @@ Swift Package Manager requires credentials to download it.
 
 Create or update `~/.netrc`:
 
+```
 machine systemloco.jfrog.io  
 login <USERNAME>  
 password <ACCESS_TOKEN>  
-
+```
 Then secure the file:
 
 chmod 600 ~/.netrc
