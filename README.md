@@ -40,7 +40,7 @@ In Xcode:
 1. Open your app project
 2. **File → Add Packages**
 3. Enter the repository URL:  
-   https://github.com/systemloco/mediscan-sdk
+   https://github.com/systemloco/Med42-iOS-SDK
 4. Select **Med42SDK**
 5. Add it to your app target
 
