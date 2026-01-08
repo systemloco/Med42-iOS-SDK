@@ -4,7 +4,7 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>com.systemloco.example.backgroundupload</string>
+		<string>com.mediscan.sdk.example.background-upload</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

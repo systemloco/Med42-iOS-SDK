@@ -6,13 +6,13 @@
 //
 
 import UIKit
-import MediscanSDK
+import Med42SDK
 
 @available(iOS 14.0, *)
 class ViewController: UIViewController {
 
     // MARK: - Properties
-    private var detectedBeacons: [MediscanBeacon] = []
+    private var detectedBeacons: [Med42Beacon] = []
     private var isScanning = false
 
     // MARK: - UI Components
@@ -128,8 +128,8 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        Mediscan.shared.delegate = self
-        Mediscan.shared.uploadDelegate = self
+        Med42.shared.delegate = self
+        Med42.shared.uploadDelegate = self
     }
 
     private func setupActions() {
@@ -149,7 +149,7 @@ class ViewController: UIViewController {
 
     @objc private func permissionsButtonTapped() {
         statusLabel.text = "Status: Requesting background permissions..."
-        Mediscan.shared.requestBackgroundPermissions()
+        Med42.shared.requestBackgroundPermissions()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             self?.statusLabel.text = "Status: Permission request sent"
@@ -158,11 +158,11 @@ class ViewController: UIViewController {
 
     @objc private func uploadButtonTapped() {
         uploadButton.isEnabled = false
-        Mediscan.shared.uploadBeacons()
+        Med42.shared.uploadBeacons()
     }
 
     private func startScanning() {
-        let success = Mediscan.shared.startForegroundScanning()
+        let success = Med42.shared.startForegroundScanning()
         if success {
             isScanning = true
             scanButton.setTitle("Stop Scanning", for: .normal)
@@ -176,7 +176,7 @@ class ViewController: UIViewController {
     }
 
     private func stopScanning() {
-        let success = Mediscan.shared.stopScanning()
+        let success = Med42.shared.stopScanning()
         if success {
             isScanning = false
             scanButton.setTitle("Start Scanning", for: .normal)
@@ -194,7 +194,7 @@ class ViewController: UIViewController {
 // MARK: - BeaconScannerDelegate
 @available(iOS 14.0, *)
 extension ViewController: BeaconScannerDelegate {
-    func didDetectBeacon(_ beacon: MediscanBeacon) {
+    func didDetectBeacon(_ beacon: Med42Beacon) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
@@ -220,7 +220,7 @@ extension ViewController: BeaconScannerDelegate {
 
 // MARK: - MediscanUploadDelegate
 @available(iOS 14.0, *)
-extension ViewController: MediscanUploadDelegate {
+extension ViewController: Med42UploadDelegate {
     func uploadDidStart() {
         DispatchQueue.main.async { [weak self] in
             self?.statusLabel.text = "Status: Uploading beacons..."

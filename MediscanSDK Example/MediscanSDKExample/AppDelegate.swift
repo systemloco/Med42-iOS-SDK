@@ -6,24 +6,24 @@
 //
 
 import UIKit
-import MediscanSDK
+import Med42SDK
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Configure the SDK first
-        let config = MediscanConfiguration(
+        let config = Med42Configuration(
             apiKey: "your-api-key",
-            clientId: "your-client-id"
+            clientId: "your-client-id",
+            backgroundUploadTaskIdentifier: "com.mediscan.sdk.example.background-upload"
         )
-        Mediscan.configure(with: config)
+        Med42.configure(with: config)
 
         // Now you can access the shared instance
-        let sdk = Mediscan.shared
+        let sdk = Med42.shared
         _ = sdk.initialize()
         sdk.requestBackgroundPermissions()
-        sdk.registerBackgroundUpload()
 
         return true
     }
