@@ -2,20 +2,37 @@
 //  ViewController.swift
 //  Med42SDKExample
 //
-//  Created by Mark Johnson on 24/07/2025.
+//  This file is a deliberately simple example of how to use the Med42 SDK.
+//  It is designed to be easy to read, easy to copy, and hard to misuse.
+//
+//  What this screen does:
+//  1. Requests background permissions
+//  2. Starts and stops foreground scanning
+//  3. Displays detected tags in a table
+//  4. Uploads detected tags on demand
+//
+//  This is NOT production-ready code.
 //
 
 import UIKit
 import Med42SDK
 
 @available(iOS 14.0, *)
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
-    // MARK: - Properties
+    // MARK: - State
+
+    /// All tags detected by the SDK.
+    /// This list is updated live via the Med42 delegate callbacks.
     private var detectedTags: [Med42Tag] = []
+
+    /// Tracks whether scanning is currently active.
+    /// Used only to toggle button state and labels.
     private var isScanning = false
 
-    // MARK: - UI Components
+    // MARK: - UI
+
+    /// Vertical stack for buttons and status label
     private let stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -24,39 +41,31 @@ class ViewController: UIViewController {
         return stack
     }()
 
-    private let scanButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Start Scanning", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
-        button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 10
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    private let scanButton = UIButton.create(
+        title: "Start Scanning",
+        font: .systemFont(ofSize: 18, weight: .semibold),
+        backgroundColor: .systemBlue
+    )
 
-    private let permissionsButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Request Background Permissions", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16)
-        button.backgroundColor = .systemGreen
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 10
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    private let permissionsButton = UIButton.create(
+        title: "Request Background Permissions",
+        font: .systemFont(ofSize: 16),
+        backgroundColor: .systemGreen
+    )
 
-    private let uploadButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Upload Tags", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16)
-        button.backgroundColor = .systemOrange
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 10
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    private let uploadButton = UIButton.create(
+        title: "Upload Tags",
+        font: .systemFont(ofSize: 16),
+        backgroundColor: .systemOrange
+    )
 
+    private let printDeviceListButton = UIButton.create(
+        title: "Print cached device list",
+        font: .systemFont(ofSize: 14),
+        backgroundColor: .systemCyan
+    )
+
+    /// Displays the current status of the SDK / app
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.text = "Status: Ready"
@@ -67,6 +76,7 @@ class ViewController: UIViewController {
         return label
     }()
 
+    /// Header label above the table view
     private let tagsLabel: UILabel = {
         let label = UILabel()
         label.text = "Detected Tags (0)"
@@ -75,6 +85,7 @@ class ViewController: UIViewController {
         return label
     }()
 
+    /// Displays detected tags
     private let tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -83,17 +94,23 @@ class ViewController: UIViewController {
     }()
 
     // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        setupDelegates()
-        setupActions()
+
+        buildUI()
+        wireUpButtons()
+        connectSDKCallbacks()
     }
 
-    // MARK: - Setup
-    private func setupUI() {
+    // MARK: - Screen setup (UI layout)
+
+    private func buildUI() {
         view.backgroundColor = .systemBackground
         title = "Med42 SDK Demo"
+        
+        tableView.delegate = self
+        tableView.dataSource = self
 
         view.addSubview(stackView)
         view.addSubview(tagsLabel)
@@ -102,6 +119,7 @@ class ViewController: UIViewController {
         stackView.addArrangedSubview(scanButton)
         stackView.addArrangedSubview(permissionsButton)
         stackView.addArrangedSubview(uploadButton)
+        stackView.addArrangedSubview(printDeviceListButton)
         stackView.addArrangedSubview(statusLabel)
 
         NSLayoutConstraint.activate([
@@ -112,6 +130,7 @@ class ViewController: UIViewController {
             scanButton.heightAnchor.constraint(equalToConstant: 50),
             permissionsButton.heightAnchor.constraint(equalToConstant: 44),
             uploadButton.heightAnchor.constraint(equalToConstant: 44),
+            printDeviceListButton.heightAnchor.constraint(equalToConstant: 44),
 
             tagsLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
             tagsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -124,52 +143,58 @@ class ViewController: UIViewController {
         ])
     }
 
-    private func setupDelegates() {
-        tableView.delegate = self
-        tableView.dataSource = self
+    // MARK: - Wiring (buttons + SDK delegates)
 
+    private func wireUpButtons() {
+        scanButton.addTarget(self, action: #selector(scanButtonTapped), for: .touchUpInside)
+        permissionsButton.addTarget(self, action: #selector(permissionsButtonTapped), for: .touchUpInside)
+        uploadButton.addTarget(self, action: #selector(uploadButtonTapped), for: .touchUpInside)
+        printDeviceListButton.addTarget(self, action: #selector(printDeviceListButtonTapped), for: .touchUpInside)
+    }
+
+    private func connectSDKCallbacks() {
+        // Safe to call once (usually in viewDidLoad)
         Med42.shared.delegate = self
         Med42.shared.uploadDelegate = self
     }
 
-    private func setupActions() {
-        scanButton.addTarget(self, action: #selector(scanButtonTapped), for: .touchUpInside)
-        permissionsButton.addTarget(self, action: #selector(permissionsButtonTapped), for: .touchUpInside)
-        uploadButton.addTarget(self, action: #selector(uploadButtonTapped), for: .touchUpInside)
-    }
+    // MARK: - Button actions (user intent)
 
-    // MARK: - Actions
     @objc private func scanButtonTapped() {
-        if isScanning {
-            stopScanning()
-        } else {
-            startScanning()
-        }
+        isScanning ? stopScanning() : startScanning()
     }
 
     @objc private func permissionsButtonTapped() {
         statusLabel.text = "Status: Requesting background permissions..."
         Med42.shared.requestBackgroundPermissions()
 
+        // Fake delay just to show UI feedback
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             self?.statusLabel.text = "Status: Permission request sent"
         }
     }
 
     @objc private func uploadButtonTapped() {
-        uploadButton.isEnabled = false
-        Med42.shared.uploadTags()
+        uploadTags()
     }
+
+    @objc private func printDeviceListButtonTapped() {
+        print(Med42.shared.getDeviceListDebugInfo())
+    }
+
+    // MARK: - Med42 SDK helpers (the only place we talk to the SDK)
 
     private func startScanning() {
         let success = Med42.shared.startForegroundScanning()
+
         if success {
             isScanning = true
             scanButton.setTitle("Stop Scanning", for: .normal)
             scanButton.backgroundColor = .systemRed
             statusLabel.text = "Status: Scanning..."
+
             detectedTags.removeAll()
-            updateTagCount()
+            updateTagUI()
         } else {
             statusLabel.text = "Status: Failed to start scanning"
         }
@@ -177,6 +202,7 @@ class ViewController: UIViewController {
 
     private func stopScanning() {
         let success = Med42.shared.stopScanning()
+
         if success {
             isScanning = false
             scanButton.setTitle("Start Scanning", for: .normal)
@@ -185,29 +211,37 @@ class ViewController: UIViewController {
         }
     }
 
-    private func updateTagCount() {
+    private func uploadTags() {
+        uploadButton.isEnabled = false
+        Med42.shared.uploadTags()
+    }
+
+    // MARK: - UI updates
+
+    private func updateTagUI() {
         tagsLabel.text = "Detected Tags (\(detectedTags.count))"
         tableView.reloadData()
     }
 }
 
-// MARK: - Med42TagScannerDelegate
+// MARK: - Med42TagScannerDelegate (scan results)
+
 @available(iOS 14.0, *)
 extension ViewController: Med42TagScannerDelegate {
+
     func didDetectTag(_ tag: Med42Tag) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
 
-            // Add or update tag in list
-            if let index = self.detectedTags.firstIndex(where: {
-                $0.deviceId == tag.deviceId
-            }) {
-                self.detectedTags[index] = tag
+            // The SDK may report the same tag multiple times,
+            // so we either update the existing entry or add a new one.
+            if let index = detectedTags.firstIndex(where: { $0.deviceId == tag.deviceId }) {
+                detectedTags[index] = tag
             } else {
-                self.detectedTags.append(tag)
+                detectedTags.append(tag)
             }
 
-            self.updateTagCount()
+            updateTagUI()
         }
     }
 
@@ -218,9 +252,11 @@ extension ViewController: Med42TagScannerDelegate {
     }
 }
 
-// MARK: - Med42UploadDelegate
+// MARK: - Med42UploadDelegate (upload lifecycle)
+
 @available(iOS 14.0, *)
 extension ViewController: Med42UploadDelegate {
+
     func uploadDidStart() {
         DispatchQueue.main.async { [weak self] in
             self?.statusLabel.text = "Status: Uploading tags..."
@@ -245,24 +281,30 @@ extension ViewController: Med42UploadDelegate {
     }
 }
 
-// MARK: - UITableViewDataSource & Delegate
+// MARK: - UITableViewDataSource & UITableViewDelegate
+
 @available(iOS 14.0, *)
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return detectedTags.count
+        detectedTags.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath)
         let tag = detectedTags[indexPath.row]
 
+        // Intentionally verbose and boring for clarity
+        let countText = tag.count != nil ? "\(tag.count!)" : "waiting"
+        let batteryText = tag.battery != nil ? "\(tag.battery!)" : "waiting"
+        let uptimeText = tag.uptime != nil ? "\(tag.uptime!)" : "waiting"
+
         var content = cell.defaultContentConfiguration()
         content.text = "ID: \(tag.deviceId)"
-        let count = tag.count.map { "\($0)" } ?? "waiting"
-        let battery = tag.battery?.description ?? "waiting"
-        let uptime = tag.uptime?.description ?? "waiting"
-
-        content.secondaryText = "Cycle count: \(count) | Battery: \(battery) | RSSI: \(tag.rssi) | Uptime: \(uptime)"
+        content.secondaryText =
+            "Cycle count: \(countText) | Battery: \(batteryText) | RSSI: \(tag.rssi) | Uptime: \(uptimeText)"
         content.secondaryTextProperties.font = .systemFont(ofSize: 12)
         content.secondaryTextProperties.color = .secondaryLabel
 
