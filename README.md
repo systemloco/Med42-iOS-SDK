@@ -68,13 +68,29 @@ Med42.shared.configure(
 
 This repository includes a minimal **example iOS app** demonstrating basic SDK integration.
 
+The example app shows how to:
+
+- Request background permissions (both on launch and from a button)
+
+- Start and stop foreground scanning
+
+- Display discovered tags in a list
+
+- Manually trigger a tag upload (uploads also happen automatically)
+
 To try it out:
 
 1. Open the repository in Xcode
 2. Select the **Med42SDKExample** scheme
 3. Build and run on a simulator or device
 
-The example is intended for reference and local testing only and is not required for SDK integration.
+### Notes
+
+The example app is intentionally minimal and not production-ready
+
+It exists only as a reference for SDK usage and local testing
+
+You do not need to use or copy this app to integrate the SDK into your own project
 
 ---
 
