@@ -12,7 +12,7 @@ import Med42SDK
 class ViewController: UIViewController {
 
     // MARK: - Properties
-    private var detectedBeacons: [Med42Beacon] = []
+    private var detectedTags: [Med42Tag] = []
     private var isScanning = false
 
     // MARK: - UI Components
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
 
     private let uploadButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Upload Beacons", for: .normal)
+        button.setTitle("Upload Tags", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.backgroundColor = .systemOrange
         button.setTitleColor(.white, for: .normal)
@@ -67,9 +67,9 @@ class ViewController: UIViewController {
         return label
     }()
 
-    private let beaconsLabel: UILabel = {
+    private let tagsLabel: UILabel = {
         let label = UILabel()
-        label.text = "Detected Beacons (0)"
+        label.text = "Detected Tags (0)"
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -78,7 +78,7 @@ class ViewController: UIViewController {
     private let tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "BeaconCell")
+        table.register(UITableViewCell.self, forCellReuseIdentifier: "TagCell")
         return table
     }()
 
@@ -96,7 +96,7 @@ class ViewController: UIViewController {
         title = "Med42 SDK Demo"
 
         view.addSubview(stackView)
-        view.addSubview(beaconsLabel)
+        view.addSubview(tagsLabel)
         view.addSubview(tableView)
 
         stackView.addArrangedSubview(scanButton)
@@ -113,11 +113,11 @@ class ViewController: UIViewController {
             permissionsButton.heightAnchor.constraint(equalToConstant: 44),
             uploadButton.heightAnchor.constraint(equalToConstant: 44),
 
-            beaconsLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
-            beaconsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            beaconsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            tagsLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
+            tagsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            tagsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
 
-            tableView.topAnchor.constraint(equalTo: beaconsLabel.bottomAnchor, constant: 10),
+            tableView.topAnchor.constraint(equalTo: tagsLabel.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -158,7 +158,7 @@ class ViewController: UIViewController {
 
     @objc private func uploadButtonTapped() {
         uploadButton.isEnabled = false
-        Med42.shared.uploadBeacons()
+        Med42.shared.uploadTags()
     }
 
     private func startScanning() {
@@ -168,8 +168,8 @@ class ViewController: UIViewController {
             scanButton.setTitle("Stop Scanning", for: .normal)
             scanButton.backgroundColor = .systemRed
             statusLabel.text = "Status: Scanning..."
-            detectedBeacons.removeAll()
-            updateBeaconCount()
+            detectedTags.removeAll()
+            updateTagCount()
         } else {
             statusLabel.text = "Status: Failed to start scanning"
         }
@@ -185,29 +185,29 @@ class ViewController: UIViewController {
         }
     }
 
-    private func updateBeaconCount() {
-        beaconsLabel.text = "Detected Beacons (\(detectedBeacons.count))"
+    private func updateTagCount() {
+        tagsLabel.text = "Detected Tags (\(detectedTags.count))"
         tableView.reloadData()
     }
 }
 
-// MARK: - BeaconScannerDelegate
+// MARK: - Med42TagScannerDelegate
 @available(iOS 14.0, *)
-extension ViewController: BeaconScannerDelegate {
-    func didDetectBeacon(_ beacon: Med42Beacon) {
+extension ViewController: Med42TagScannerDelegate {
+    func didDetectTag(_ tag: Med42Tag) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
-            // Add or update beacon in list
-            if let index = self.detectedBeacons.firstIndex(where: {
-                $0.uuid == beacon.uuid && $0.major == beacon.major && $0.minor == beacon.minor
+            // Add or update tag in list
+            if let index = self.detectedTags.firstIndex(where: {
+                $0.deviceId == tag.deviceId
             }) {
-                self.detectedBeacons[index] = beacon
+                self.detectedTags[index] = tag
             } else {
-                self.detectedBeacons.append(beacon)
+                self.detectedTags.append(tag)
             }
 
-            self.updateBeaconCount()
+            self.updateTagCount()
         }
     }
 
@@ -223,7 +223,7 @@ extension ViewController: BeaconScannerDelegate {
 extension ViewController: Med42UploadDelegate {
     func uploadDidStart() {
         DispatchQueue.main.async { [weak self] in
-            self?.statusLabel.text = "Status: Uploading beacons..."
+            self?.statusLabel.text = "Status: Uploading tags..."
             self?.uploadButton.setTitle("Uploading...", for: .normal)
         }
     }
@@ -231,7 +231,7 @@ extension ViewController: Med42UploadDelegate {
     func uploadDidComplete() {
         DispatchQueue.main.async { [weak self] in
             self?.statusLabel.text = "Status: Upload successful"
-            self?.uploadButton.setTitle("Upload Beacons", for: .normal)
+            self?.uploadButton.setTitle("Upload Tags", for: .normal)
             self?.uploadButton.isEnabled = true
         }
     }
@@ -239,7 +239,7 @@ extension ViewController: Med42UploadDelegate {
     func uploadDidFail(error: Error) {
         DispatchQueue.main.async { [weak self] in
             self?.statusLabel.text = "Status: Upload failed - \(error.localizedDescription)"
-            self?.uploadButton.setTitle("Upload Beacons", for: .normal)
+            self?.uploadButton.setTitle("Upload Tags", for: .normal)
             self?.uploadButton.isEnabled = true
         }
     }
@@ -249,16 +249,20 @@ extension ViewController: Med42UploadDelegate {
 @available(iOS 14.0, *)
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return detectedBeacons.count
+        return detectedTags.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BeaconCell", for: indexPath)
-        let beacon = detectedBeacons[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath)
+        let tag = detectedTags[indexPath.row]
 
         var content = cell.defaultContentConfiguration()
-        content.text = "UUID: \(beacon.uuid.prefix(8))..."
-        content.secondaryText = "Major: \(beacon.major) | Minor: \(beacon.minor) | RSSI: \(beacon.rssi) | Accuracy: \(String(format: "%.2f", beacon.accuracy))m"
+        content.text = "ID: \(tag.deviceId)"
+        let count = tag.count.map { "\($0)" } ?? "waiting"
+        let battery = tag.battery?.description ?? "waiting"
+        let uptime = tag.uptime?.description ?? "waiting"
+
+        content.secondaryText = "Cycle count: \(count) | Battery: \(battery) | RSSI: \(tag.rssi) | Uptime: \(uptime)"
         content.secondaryTextProperties.font = .systemFont(ofSize: 12)
         content.secondaryTextProperties.color = .secondaryLabel
 
