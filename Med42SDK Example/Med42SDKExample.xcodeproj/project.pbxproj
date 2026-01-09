@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BF22AF712F0FC82500F821BE /* Med42SDK in Frameworks */ = {isa = PBXBuildFile; productRef = BF22AF702F0FC82500F821BE /* Med42SDK */; };
+		BF8ECEF42F110FED0080BB69 /* Med42SDK in Frameworks */ = {isa = PBXBuildFile; productRef = BF8ECEF32F110FED0080BB69 /* Med42SDK */; };
+		BF8ECF502F11C8930080BB69 /* Med42SDK in Frameworks */ = {isa = PBXBuildFile; productRef = BF8ECF4F2F11C8930080BB69 /* Med42SDK */; };
 		BFB6D1B92EF1BDB800314791 /* Med42SDK in Frameworks */ = {isa = PBXBuildFile; productRef = BFB6D1B82EF1BDB800314791 /* Med42SDK */; };
 /* End PBXBuildFile section */
 
@@ -41,7 +42,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF22AF712F0FC82500F821BE /* Med42SDK in Frameworks */,
+				BF8ECEF42F110FED0080BB69 /* Med42SDK in Frameworks */,
+				BF8ECF502F11C8930080BB69 /* Med42SDK in Frameworks */,
 				BFB6D1B92EF1BDB800314791 /* Med42SDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,7 +96,8 @@
 			name = Med42SDKExample;
 			packageProductDependencies = (
 				BFB6D1B82EF1BDB800314791 /* Med42SDK */,
-				BF22AF702F0FC82500F821BE /* Med42SDK */,
+				BF8ECEF32F110FED0080BB69 /* Med42SDK */,
+				BF8ECF4F2F11C8930080BB69 /* Med42SDK */,
 			);
 			productName = Med42SDKExample;
 			productReference = 4DFB31B72E324D3C000ECB6F /* Med42SDKExample.app */;
@@ -125,7 +128,7 @@
 			mainGroup = 4DFB31AE2E324D3C000ECB6F;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				BF22AF6F2F0FC82500F821BE /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */,
+				BF8ECF4E2F11C8930080BB69 /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4DFB31B82E324D3C000ECB6F /* Products */;
@@ -170,11 +173,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Med42SDKExample/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs access to your location in the background to scan for nearby beacons even when the app is not in use.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs access to your location to scan for nearby beacons.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -182,6 +187,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.systemloco.Med42SDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -200,11 +209,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Med42SDKExample/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs access to your location in the background to scan for nearby beacons even when the app is not in use.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs access to your location to scan for nearby beacons.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -212,6 +223,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.systemloco.Med42SDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -365,20 +380,24 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		BF22AF6F2F0FC82500F821BE /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */ = {
+		BF8ECF4E2F11C8930080BB69 /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/systemloco/Med42-iOS-SDK";
 			requirement = {
 				kind = revision;
-				revision = 87b150bf33c6a8aabdd78f0570b1c16a0f20b352;
+				revision = b424ccd75141c53b9d8d4619ec4c2b712136e71d;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		BF22AF702F0FC82500F821BE /* Med42SDK */ = {
+		BF8ECEF32F110FED0080BB69 /* Med42SDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BF22AF6F2F0FC82500F821BE /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */;
+			productName = Med42SDK;
+		};
+		BF8ECF4F2F11C8930080BB69 /* Med42SDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BF8ECF4E2F11C8930080BB69 /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */;
 			productName = Med42SDK;
 		};
 		BFB6D1B82EF1BDB800314791 /* Med42SDK */ = {
