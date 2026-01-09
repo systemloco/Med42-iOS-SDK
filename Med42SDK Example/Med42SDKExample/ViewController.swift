@@ -300,11 +300,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let countText = tag.count != nil ? "\(tag.count!)" : "waiting"
         let batteryText = tag.battery != nil ? "\(tag.battery!)" : "waiting"
         let uptimeText = tag.uptime != nil ? "\(tag.uptime!)" : "waiting"
-
+        
         var content = cell.defaultContentConfiguration()
         content.text = "ID: \(tag.deviceId)"
         content.secondaryText =
-            "Cycle count: \(countText) | Battery: \(batteryText) | RSSI: \(tag.rssi) | Uptime: \(uptimeText)"
+            "Cycle count: \(countText) | Battery: \(batteryText) | Uptime: \(uptimeText)"
         content.secondaryTextProperties.font = .systemFont(ofSize: 12)
         content.secondaryTextProperties.color = .secondaryLabel
 
