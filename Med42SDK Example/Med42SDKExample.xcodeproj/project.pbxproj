@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BF8ECEF42F110FED0080BB69 /* Med42SDK in Frameworks */ = {isa = PBXBuildFile; productRef = BF8ECEF32F110FED0080BB69 /* Med42SDK */; };
-		BF8ECF502F11C8930080BB69 /* Med42SDK in Frameworks */ = {isa = PBXBuildFile; productRef = BF8ECF4F2F11C8930080BB69 /* Med42SDK */; };
+		BF8ECF792F11CFB40080BB69 /* Med42SDK in Frameworks */ = {isa = PBXBuildFile; productRef = BF8ECF782F11CFB40080BB69 /* Med42SDK */; };
 		BFB6D1B92EF1BDB800314791 /* Med42SDK in Frameworks */ = {isa = PBXBuildFile; productRef = BFB6D1B82EF1BDB800314791 /* Med42SDK */; };
 /* End PBXBuildFile section */
 
@@ -43,7 +43,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF8ECEF42F110FED0080BB69 /* Med42SDK in Frameworks */,
-				BF8ECF502F11C8930080BB69 /* Med42SDK in Frameworks */,
+				BF8ECF792F11CFB40080BB69 /* Med42SDK in Frameworks */,
 				BFB6D1B92EF1BDB800314791 /* Med42SDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,7 +97,7 @@
 			packageProductDependencies = (
 				BFB6D1B82EF1BDB800314791 /* Med42SDK */,
 				BF8ECEF32F110FED0080BB69 /* Med42SDK */,
-				BF8ECF4F2F11C8930080BB69 /* Med42SDK */,
+				BF8ECF782F11CFB40080BB69 /* Med42SDK */,
 			);
 			productName = Med42SDKExample;
 			productReference = 4DFB31B72E324D3C000ECB6F /* Med42SDKExample.app */;
@@ -128,7 +128,7 @@
 			mainGroup = 4DFB31AE2E324D3C000ECB6F;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				BF8ECF4E2F11C8930080BB69 /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */,
+				BF8ECF772F11CFB40080BB69 /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4DFB31B82E324D3C000ECB6F /* Products */;
@@ -380,12 +380,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		BF8ECF4E2F11C8930080BB69 /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */ = {
+		BF8ECF772F11CFB40080BB69 /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/systemloco/Med42-iOS-SDK";
 			requirement = {
 				kind = revision;
-				revision = b424ccd75141c53b9d8d4619ec4c2b712136e71d;
+				revision = 61b0d9d031e415905cb2f05c3cb519cd428b1550;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -395,9 +395,9 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = Med42SDK;
 		};
-		BF8ECF4F2F11C8930080BB69 /* Med42SDK */ = {
+		BF8ECF782F11CFB40080BB69 /* Med42SDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BF8ECF4E2F11C8930080BB69 /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */;
+			package = BF8ECF772F11CFB40080BB69 /* XCRemoteSwiftPackageReference "Med42-iOS-SDK" */;
 			productName = Med42SDK;
 		};
 		BFB6D1B82EF1BDB800314791 /* Med42SDK */ = {
