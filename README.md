@@ -2,6 +2,8 @@
 
 Closed-source iOS SDK distributed as a binary Swift Package.
 
+You can read the SDK API Documentation at <https://systemloco.github.io/Med42-iOS-SDK/>.
+
 ---
 
 ## Requirements
