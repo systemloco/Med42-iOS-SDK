@@ -16,13 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let config = Med42Configuration(
             apiKey: "your-api-key",
             clientId: "your-client-id",
+            appIdentifier: "Example App",
             backgroundUploadTaskIdentifier: "com.med42.sdk.example.background-upload"
         )
         Med42.configure(with: config)
 
         // Now you can access the shared instance
         let sdk = Med42.shared
-        _ = sdk.initialize()
+        sdk.initialize()
         sdk.requestBackgroundPermissions()
         
         Med42.shared.debugUploadNotifications = true

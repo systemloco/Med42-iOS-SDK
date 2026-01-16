@@ -154,7 +154,7 @@ final class ViewController: UIViewController {
 
     private func connectSDKCallbacks() {
         // Safe to call once (usually in viewDidLoad)
-        Med42.shared.delegate = self
+        Med42.shared.scanDelegate = self
         Med42.shared.uploadDelegate = self
     }
 
@@ -179,7 +179,7 @@ final class ViewController: UIViewController {
     }
 
     @objc private func printDeviceListButtonTapped() {
-        print(Med42.shared.getDeviceListDebugInfo())
+        print(Med42.shared.sdkConfigurationVersion)
     }
 
     // MARK: - Med42 SDK helpers (the only place we talk to the SDK)
@@ -228,8 +228,7 @@ final class ViewController: UIViewController {
 
 @available(iOS 14.0, *)
 extension ViewController: Med42TagScannerDelegate {
-
-    func didDetectTag(_ tag: Med42Tag) {
+    func scanDidDetectTag(_ tag: Med42SDK.Med42Tag) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
 
@@ -245,7 +244,7 @@ extension ViewController: Med42TagScannerDelegate {
         }
     }
 
-    func didFailWithError(_ error: Error) {
+    func scanDidFailWithError(_ error: Error) {
         DispatchQueue.main.async { [weak self] in
             self?.statusLabel.text = "Status: Error - \(error.localizedDescription)"
         }
@@ -256,7 +255,6 @@ extension ViewController: Med42TagScannerDelegate {
 
 @available(iOS 14.0, *)
 extension ViewController: Med42UploadDelegate {
-
     func uploadDidStart() {
         DispatchQueue.main.async { [weak self] in
             self?.statusLabel.text = "Status: Uploading tags..."
@@ -264,17 +262,15 @@ extension ViewController: Med42UploadDelegate {
         }
     }
 
-    func uploadDidComplete() {
+    func uploadDidFinish(result: Med42SDK.Med42UploadResult) {
         DispatchQueue.main.async { [weak self] in
-            self?.statusLabel.text = "Status: Upload successful"
-            self?.uploadButton.setTitle("Upload Tags", for: .normal)
-            self?.uploadButton.isEnabled = true
-        }
-    }
-
-    func uploadDidFail(error: Error) {
-        DispatchQueue.main.async { [weak self] in
-            self?.statusLabel.text = "Status: Upload failed - \(error.localizedDescription)"
+            switch result {
+            case .success, .nothingToUpload:
+                self?.statusLabel.text = "Status: Upload successful"
+            case .failed(let error), .partialSuccess(_, let error):
+                self?.statusLabel.text = "Status: Upload failed - \(error.localizedDescription)"
+            }
+            
             self?.uploadButton.setTitle("Upload Tags", for: .normal)
             self?.uploadButton.isEnabled = true
         }
@@ -297,8 +293,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let tag = detectedTags[indexPath.row]
 
         // Intentionally verbose and boring for clarity
-        let countText = tag.count != nil ? "\(tag.count!)" : "waiting"
-        let batteryText = tag.battery != nil ? "\(tag.battery!)" : "waiting"
+        let countText = tag.cycleCount != nil ? "\(tag.cycleCount!)" : "waiting"
+        let batteryText = "\(tag.battery)" 
         let uptimeText = tag.uptime != nil ? "\(tag.uptime!)" : "waiting"
         
         var content = cell.defaultContentConfiguration()
