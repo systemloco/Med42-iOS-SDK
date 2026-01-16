@@ -49,23 +49,6 @@ In Xcode:
 
 ---
 
-## Usage
-
-```swift
-import Med42
-```
-
-Example:
-
-```swift
-Med42.shared.configure(
-    apiKey: "<API_KEY>",
-    clientId: "<CLIENT_ID>"
-)
-```
-
----
-
 ## Example App
 
 This repository includes a minimal **example iOS app** demonstrating basic SDK integration.
@@ -93,13 +76,6 @@ The example app is intentionally minimal and not production-ready
 It exists only as a reference for SDK usage and local testing
 
 You do not need to use or copy this app to integrate the SDK into your own project
-
----
-
-## Updating
-
-The SDK is versioned.  
-To update, select a newer version in Xcode under **Package Dependencies**.
 
 ---
 
