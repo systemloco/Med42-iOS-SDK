@@ -22,7 +22,7 @@ jobs:
         id: version
         run: |
           VERSION=$(cat VERSION | tr -d '\n')
-          TAG="ios-sdk-v$VERSION"
+          TAG="v$VERSION"
 
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
@@ -49,5 +49,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "${{ steps.version.outputs.tag }}" \
-            --title "iOS SDK ${{ steps.version.outputs.version }}" \
+            --title "${{ steps.version.outputs.version }}" \
             --generate-notes
