@@ -15,8 +15,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "Med42SDK",
-            url: "https://systemloco.jfrog.io/artifactory/med42-ios-sdk/Med42SDK/1.1.15/Med42SDK.xcframework.zip",
-            checksum: "a738aaa3aad10fd6951466488bf2bb1677869761a90cc7feef9d63c30d77a6fd"
+            url: "https://systemloco.jfrog.io/artifactory/med42-ios-sdk/Med42SDK/1.1.17/Med42SDK.xcframework.zip",
+            checksum: "e09d82d68c9bb322651e248e665d984307818cc70e912a44947b62f0293ee949"
         )
     ]
 )
