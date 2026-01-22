@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Configure the SDK first
         let config = Med42Configuration(
-            apiKey: "your-api-key",
+            clientSecret: "your-client-secret",
             clientId: "your-client-id",
             appIdentifier: "Example App",
             backgroundUploadTaskIdentifier: "com.med42.sdk.example.background-upload"
