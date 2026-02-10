@@ -31,8 +31,8 @@
 		<string>location</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to your location to scan for nearby beacons.</string>
+	<string>This app needs your location to detect nearby Med42 devices and to record where they are.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app needs access to your location in the background to scan for nearby beacons even when the app is not in use.</string>
+	<string>This app needs your location to detect nearby Med42 devices when the app is not in use.</string>
 </dict>
 </plist>

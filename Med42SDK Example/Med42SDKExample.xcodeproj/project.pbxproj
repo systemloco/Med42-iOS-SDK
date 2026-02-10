@@ -173,8 +173,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Med42SDKExample/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs access to your location in the background to scan for nearby beacons even when the app is not in use.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs access to your location to scan for nearby beacons.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -209,8 +207,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Med42SDKExample/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs access to your location in the background to scan for nearby beacons even when the app is not in use.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs access to your location to scan for nearby beacons.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
