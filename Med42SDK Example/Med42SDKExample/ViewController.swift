@@ -101,6 +101,13 @@ final class ViewController: UIViewController {
         buildUI()
         wireUpButtons()
         connectSDKCallbacks()
+        requestPermissionsIfNeeded()
+    }
+    
+    private func requestPermissionsIfNeeded() {
+        Task {
+            await Med42.shared.requestBackgroundPermissions()
+        }
     }
 
     // MARK: - Screen setup (UI layout)
@@ -166,8 +173,9 @@ final class ViewController: UIViewController {
 
     @objc private func permissionsButtonTapped() {
         statusLabel.text = "Status: Requesting background permissions..."
-        Med42.shared.requestBackgroundPermissions()
-
+        
+        requestPermissionsIfNeeded()
+        
         // Fake delay just to show UI feedback
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             self?.statusLabel.text = "Status: Permission request sent"

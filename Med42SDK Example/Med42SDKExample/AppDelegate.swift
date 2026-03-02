@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Now you can access the shared instance
         let sdk = Med42.shared
         sdk.initialize()
-        sdk.requestBackgroundPermissions()
         
         Med42.shared.debugUploadNotifications = true
         Med42.shared.requestDebugNotificationPermissions()
